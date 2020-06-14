@@ -151,7 +151,6 @@ cd zsh-5.8
 echo "/usr/local/bin/zsh" | tee -a /etc/shells
 chsh -s /usr/local/bin/zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-chsh -s /bin/zsh
 wget -O ~/.zshrc https://cdn.starskim.cn/pxe/zsh/.zshrc
 cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 echo 'robbyrussell-ascii.zsh-theme'
