@@ -155,7 +155,7 @@ wget -O ~/.zshrc https://cdn.starskim.cn/pxe/zsh/.zshrc
 cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 echo 'robbyrussell-ascii.zsh-theme'
 if [ ! -e "./themes/powerlevel10k" ];then
-git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ./themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 else
 cd ./themes/powerlevel10k
 git pull
