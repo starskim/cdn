@@ -3,14 +3,14 @@
 ######## hostname ########
 LOCAL_IPADDR=$(hostname -I | cut -d ' ' -f 1)
 PTR_ANSWER=$(dig +short -x "$LOCAL_IPADDR")
-ens=$(cat /proc/net/dev | awk '{i++; if(i>3){print $1}}' | sed 's/^[\t]*//g' | sed 's/[:]*$//g')
+ENS=$(cat /proc/net/dev | awk '{i++; if(i>3){print $1}}' | sed 's/^[\t]*//g' | sed 's/[:]*$//g')
 if [ -z "$PTR_ANSWER" ] ; then
-    hostname=linux_$(sed 's/://g' < /sys/class/net/$ens/address | cut -c 7-12)
+    hostname=$(sed 's/://g' < /sys/class/net/$ENS/address | cut -c 7-12)
 else
-    hostname=linux_$(echo "$PTR_ANSWER" | cut -d '.' -f 1)
+    hostname=$(echo "$PTR_ANSWER" | cut -d '.' -f 1)
 fi
 
-hostnamectl set-hostname "$hostname"
+hostnamectl set-hostname "linux_$hostname"
 
 ######## sysctl ########
 cat <<EOF >> /etc/sysctl.conf
@@ -143,25 +143,25 @@ echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
 ######## zsh ########
 export https_proxy=http://10.0.1.11:10809 http_proxy=http://10.0.1.11:10809 all_proxy=socks5://10.0.1.11:10808
+cd ~
 wget -O zsh-5.8.tar.xz https://sourceforge.net/projects/zsh/files/zsh/5.8/zsh-5.8.tar.xz/download
-tar xvf zsh-5.8.tar.xz
+tar xvf zsh-5.8.tar.xz && rm -rf xvf zsh-5.8.tar.xz
 cd zsh-5.8
-./configure && make && sudo make install
+./configure --with-tcsetpgrp && make && make install
 /usr/local/bin/zsh --version
 echo "/usr/local/bin/zsh" | tee -a /etc/shells
 chsh -s /usr/local/bin/zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 wget -O ~/.zshrc https://cdn.starskim.cn/pxe/zsh/.zshrc
 cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
-echo 'robbyrussell-ascii.zsh-theme'
+echo 'powerlevel10k'
 if [ ! -e "./themes/powerlevel10k" ];then
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ./themes/powerlevel10k
 else
 cd ./themes/powerlevel10k
 git pull
-cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 fi
-cd ./plugins
+cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins
 echo 'zsh-completions'
 if [ ! -e "./zsh-completions" ];then
 git clone https://github.com/zsh-users/zsh-completions ./zsh-completions
