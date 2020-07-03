@@ -120,7 +120,7 @@ echo "session required /usr/lib64/security/pam_limits.so" >> /etc/pam.d/login
 rm -f /etc/yum.repos.d/Centos*.repo
 rm -f /etc/yum.repos.d/epel*.repo
 yum clean all
-wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack-full.tar.gz && ./oneinstack/install.sh --nginx_option 1 --apache_option 1 --apache_mpm_option 1 --apache_mode_option 1 --php_option 9 --phpcache_option 1 --php_extensions imagick,fileinfo,redis,memcached --phpmyadmin  --pureftpd  --redis  --memcached 
+# wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack-full.tar.gz && ./oneinstack/install.sh --nginx_option 1 --apache_option 1 --apache_mpm_option 1 --apache_mode_option 1 --php_option 9 --phpcache_option 1 --php_extensions imagick,fileinfo,redis,memcached --phpmyadmin  --pureftpd  --redis  --memcached 
 nginx -v
 httpd -v
 php -v
