@@ -5,12 +5,12 @@ LOCAL_IPADDR=$(hostname -I | cut -d ' ' -f 1)
 PTR_ANSWER=$(dig +short -x "$LOCAL_IPADDR")
 ENS=$(cat /proc/net/dev | awk '{i++; if(i>3){print $1}}' | sed 's/^[\t]*//g' | sed 's/[:]*$//g')
 if [ -z "$PTR_ANSWER" ] ; then
-    hostname=$(sed 's/://g' < /sys/class/net/$ENS/address | cut -c 7-12)
+    hostname="linux_$(sed 's/://g' < /sys/class/net/$ENS/address | cut -c 7-12)"
 else
     hostname=$(echo "$PTR_ANSWER" | cut -d '.' -f 1)
 fi
 
-hostnamectl set-hostname "linux_$hostname"
+hostnamectl set-hostname "$hostname"
 
 ######## sysctl ########
 cat <<EOF >> /etc/sysctl.conf
@@ -132,6 +132,7 @@ echo "session required /usr/lib64/security/pam_limits.so" >> /etc/pam.d/login
 rm -f /etc/yum.repos.d/Centos*.repo
 rm -f /etc/yum.repos.d/epel*.repo
 yum clean all
+wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack-full.tar.gz && ./oneinstack/install.sh --nginx_option 1 --apache_option 1 --apache_mpm_option 1 --apache_mode_option 1 --php_option 9 --phpcache_option 1 --php_extensions imagick,fileinfo,redis,memcached --phpmyadmin  --pureftpd  --redis  --memcached 
 yum install -y iftop htop python-pip python3-pip python3-devel python3 bash-completion bash-completion-extras vim wget gcc \
   ntpdate ntp ncurses-devel
 pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
@@ -142,51 +143,7 @@ pip3 install glances
 echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
 ######## zsh ########
-export https_proxy=http://10.0.1.11:10809 http_proxy=http://10.0.1.11:10809 all_proxy=socks5://10.0.1.11:10808
-cd ~
-wget -O zsh-5.8.tar.xz https://sourceforge.net/projects/zsh/files/zsh/5.8/zsh-5.8.tar.xz/download
-tar xvf zsh-5.8.tar.xz && rm -rf xvf zsh-5.8.tar.xz
-cd zsh-5.8
-./configure --with-tcsetpgrp && make && make install
-/usr/local/bin/zsh --version
-echo "/usr/local/bin/zsh" | tee -a /etc/shells
-chsh -s /usr/local/bin/zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-wget -O ~/.zshrc https://cdn.starskim.cn/pxe/zsh/.zshrc
-cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
-echo 'powerlevel10k'
-if [ ! -e "./themes/powerlevel10k" ];then
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ./themes/powerlevel10k
-else
-cd ./themes/powerlevel10k
-git pull
-fi
-cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins
-echo 'zsh-completions'
-if [ ! -e "./zsh-completions" ];then
-git clone https://github.com/zsh-users/zsh-completions ./zsh-completions
-else
-cd ./zsh-completions
-git pull
-cd ..
-fi
-echo 'zsh-syntax-highlighting'
-if [ ! -e "./zsh-syntax-highlighting" ];then
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ./zsh-syntax-highlighting
-else
-cd ./zsh-syntax-highlighting
-git pull
-cd ..
-fi
-echo 'zsh-autosuggestions'
-if [ ! -e "./zsh-autosuggestions" ];then
-git clone https://github.com/zsh-users/zsh-autosuggestions ./zsh-autosuggestions
-else
-cd ./zsh-autosuggestions
-git pull
-cd ..
-fi
-autoload -U compinit && compinit
+sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/ohmyzsh.sh)"
 
 ######## 删除预设的脚本 ########
 sed -i '/.*pxe-setting-script\.sh.*/d' /etc/rc.d/rc.local
