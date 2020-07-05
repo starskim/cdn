@@ -142,7 +142,7 @@ pip3 install glances
 echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
 ######## zsh ########
-sh -c "$(curl -fsSL https://cdn.starskim.cn/pxe/shell/ohmyzsh.sh)"
+sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/ohmyzsh.sh)"
 
 ######## 删除预设的脚本 ########
 sed -i '/.*pxe-setting-script\.sh.*/d' /etc/rc.d/rc.local
