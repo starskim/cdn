@@ -49,3 +49,11 @@ baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/centosplus/$base
 gpgcheck=1
 enabled=0
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/centos/RPM-GPG-KEY-CentOS-7
+
+[elasticsearch]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/elasticstack/yum/elastic-7.x/
+gpgcheck=0
+enabled=1
+autorefresh=1
+type=rpm-md
