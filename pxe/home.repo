@@ -143,6 +143,7 @@ gpgcheck=1
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
 
 [kubernetes]
-name=KubernetesRepo
+name=Kubernetes Repo
 baseurl=https://mirrors.tuna.tsinghua.edu.cn/kubernetes/yum/repos/kubernetes-el7-x86_64/
+enabled=1
 gpgcheck=0
