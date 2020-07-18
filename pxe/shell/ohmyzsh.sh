@@ -4,11 +4,11 @@
 # export https_proxy=http://10.0.0.251:10809 http_proxy=http://10.0.0.251:10809 all_proxy=socks5://10.0.0.251:10808
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 chsh -s /bin/zsh
-wget -O ~/.zshrc https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/.zshrc
+wget -c -O ~/.zshrc https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/.zshrc
 cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 echo 'robbyrussell-ascii.zsh-theme'
 if [ ! -e "./themes/robbyrussell-ascii.zsh-theme" ];then
-wget -O ./themes/robbyrussell-ascii.zsh-theme https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/robbyrussell-ascii.zsh-theme
+wget -c -O ./themes/robbyrussell-ascii.zsh-theme https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/robbyrussell-ascii.zsh-theme
 fi
 echo 'powerlevel10k'
 if [ ! -e "./themes/powerlevel10k" ];then
@@ -43,7 +43,7 @@ git pull
 cd ..
 fi
 cd ~
-wget -O zsh-5.8.tar.xz https://sourceforge.net/projects/zsh/files/zsh/5.8/zsh-5.8.tar.xz/download
+wget -c -O zsh-5.8.tar.xz https://sourceforge.net/projects/zsh/files/zsh/5.8/zsh-5.8.tar.xz/download
 tar xvf zsh-5.8.tar.xz && rm -rf xvf zsh-5.8.tar.xz
 cd zsh-5.8
 ./configure --with-tcsetpgrp && make && make install
