@@ -140,7 +140,7 @@ yum install -y iftop htop python-pip python3-pip python3-devel python3 bash-comp
   net-tools libxslt-devel libicu-devel libevent-devel libtool libtool-ltdl bison gd-devel vim-enhanced pcre-devel libmcrypt \
   libmcrypt-devel mhash mhash-devel mcrypt zip unzip ntpdate sqlite-devel sysstat patch bc \
   expect expat-devel oniguruma oniguruma-devel libtirpc-devel nss rsync rsyslog git lsof lrzsz \
-  psmisc wget which libatomic tmux gettext-devel perl-ExtUtils-MakeMaker
+  psmisc wget which libatomic tmux gettext-devel perl-ExtUtils-MakeMaker redhat-lsb-core
 pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
 pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip3 install glances
