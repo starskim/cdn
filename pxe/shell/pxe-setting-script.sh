@@ -162,5 +162,4 @@ rm -rf /etc/rc.local && ln -s /etc/rc.d/rc.local /etc/rc.local
 rm -f ~/*.cfg
 
 ######## 重启 ########
-cd ~
-wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack-full.tar.gz && ./oneinstack/install.sh --reboot 
+reboot 
