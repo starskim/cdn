@@ -148,6 +148,8 @@ pip3 install glances
 ######## crontab ########
 echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
+export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
+
 ######## zsh ########
 sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/ohmyzsh.sh)"
 

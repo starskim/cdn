@@ -141,3 +141,4 @@ bindkey -s "^[Oo" "/"
 
 HIST_STAMPS="yyyy-mm-dd"
 
+export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
