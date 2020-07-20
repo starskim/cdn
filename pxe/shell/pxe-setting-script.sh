@@ -149,6 +149,7 @@ pip3 install glances
 echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
 ######## OneinStack ########
+cd ~
 wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
 tar xzf oneinstack-full.tar.gz && rm -rf oneinstack-full.tar.gz
 
