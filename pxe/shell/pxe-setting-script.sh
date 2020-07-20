@@ -168,4 +168,4 @@ rm -rf /etc/rc.local && ln -s /etc/rc.d/rc.local /etc/rc.local
 rm -f ~/*.cfg
 
 ######## 重启 ########
-reboot 
+reboot
