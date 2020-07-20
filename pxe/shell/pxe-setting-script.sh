@@ -5,7 +5,7 @@ LOCAL_IPADDR=$(hostname -I | cut -d ' ' -f 1)
 PTR_ANSWER=$(dig +short -x "$LOCAL_IPADDR")
 ens=$(cat /proc/net/dev | awk '{i++; if(i>3){print $1}}' | sed 's/^[\t]*//g' | sed 's/[:]*$//g')
 if [ -z "$PTR_ANSWER" ] ; then
-    hostname=linux-$(sed 's/://g' < /sys/class/net/$ens/address | cut -c 7-12)
+    hostname=linux_$(sed 's/://g' < /sys/class/net/$ens/address | cut -c 7-12)
 else
     hostname=$(echo "$PTR_ANSWER" | cut -d '.' -f 1)
 fi
@@ -148,6 +148,11 @@ pip3 install glances
 ######## crontab ########
 echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
+######## OneinStack ########
+wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
+tar xzf oneinstack-full.tar.gz && rm -rf oneinstack-full.tar.gz
+
+######## 代理 ########
 export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
 
 ######## zsh ########
