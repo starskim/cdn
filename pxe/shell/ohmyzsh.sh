@@ -44,7 +44,7 @@ cd ..
 fi
 cd ~
 wget -c -O zsh-5.8.tar.xz https://sourceforge.net/projects/zsh/files/zsh/5.8/zsh-5.8.tar.xz/download
-tar xvf zsh-5.8.tar.xz && rm -rf xvf zsh-5.8.tar.xz
+tar xvf zsh-5.8.tar.xz && rm -rf zsh-5.8.tar.xz
 cd zsh-5.8
 ./configure --with-tcsetpgrp && make && make install
 /usr/local/bin/zsh --version
