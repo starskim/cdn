@@ -147,6 +147,8 @@ pip3 install glances
 
 ######## ddns ########
 git clone https://github.com/NewFuture/DDNS.git ~/DDNS
+cd ~/DDNS
+wget -c https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/ddns/config.json
 
 ######## crontab ########
 echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
