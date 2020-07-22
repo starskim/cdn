@@ -145,6 +145,9 @@ pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
 pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip3 install glances
 
+######## ddns ########
+git clone https://github.com/NewFuture/DDNS.git ~/DDNS
+
 ######## crontab ########
 echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
