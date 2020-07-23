@@ -145,11 +145,6 @@ pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
 pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip3 install glances
 
-######## ddns ########
-git clone https://github.com/NewFuture/DDNS.git ~/DDNS
-cd ~/DDNS
-wget -c https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/ddns/config.json
-
 ######## crontab ########
 echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
@@ -160,6 +155,11 @@ tar xzf oneinstack-full.tar.gz && rm -rf oneinstack-full.tar.gz
 
 ######## 代理 ########
 export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
+
+######## ddns ########
+git clone https://github.com/NewFuture/DDNS.git ~/DDNS
+cd ~/DDNS
+wget -c https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/ddns/config.json
 
 ######## zsh ########
 sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/ohmyzsh.sh)"
