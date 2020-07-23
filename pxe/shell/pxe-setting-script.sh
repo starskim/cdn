@@ -154,12 +154,24 @@ wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
 tar xzf oneinstack-full.tar.gz && rm -rf oneinstack-full.tar.gz
 
 ######## 代理 ########
+if [ $ens == ens192 ] ; then
 export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
+else
+export https_proxy=http://10.0.1.1:6152 http_proxy=http://10.0.1.1:6152 all_proxy=socks5://10.0.1.1:6153
+fi
 
 ######## ddns ########
+echo 'ddns'
+if [ ! -e "~/DDNS" ];then
 git clone https://github.com/NewFuture/DDNS.git ~/DDNS
 cd ~/DDNS
 wget -c https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/ddns/config.json
+else
+cd ~/DDNS
+git pull
+wget -c https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/ddns/config.json
+cd ~
+fi
 
 ######## zsh ########
 sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/ohmyzsh.sh)"
