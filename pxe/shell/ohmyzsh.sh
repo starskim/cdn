@@ -2,7 +2,13 @@
 
 # Install oh-my-zsh
 # export https_proxy=http://10.0.0.251:10809 http_proxy=http://10.0.0.251:10809 all_proxy=socks5://10.0.0.251:10808
+if [ ! -e "~/.oh-my-zsh" ];then
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+else
+cd ~/.oh-my-zsh
+git pull
+cd ~
+fi
 chsh -s /bin/zsh
 wget -c -O ~/.zshrc https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/.zshrc
 cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
