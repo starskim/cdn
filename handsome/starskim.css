@@ -69,3 +69,6 @@
 .app.container {
     box-shadow: 0 0 30px rgba(255, 112, 173, 0.35);
 } */
+
+/* Logo变色 */
+.bg-black .navbar-brand svg g,.bg-dark  .navbar-brand svg g,.bg-primary .navbar-brand svg g,.bg-info .navbar-brand svg g,.bg-success  .navbar-brand svg g,.bg-danger .navbar-brand svg g{fill:#fff}
