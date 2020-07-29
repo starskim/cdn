@@ -44,7 +44,7 @@
   .github-badge .bg-purple {
     background-color: #ab34e9
   }
-#阴影颜色修改rgba后面的值
+/* 阴影颜色修改rgba后面的值 */
 /*panel阴影*/
 /* .panel{
    box-shadow: 1px 1px 5px 5px rgba(255, 112, 173, 0.35);
@@ -71,4 +71,4 @@
 } */
 
 /* Logo变色 */
-.bg-black .navbar-brand svg g,.bg-dark  .navbar-brand svg g,.bg-primary .navbar-brand svg g,.bg-info .navbar-brand svg g,.bg-success  .navbar-brand svg g,.bg-danger .navbar-brand svg g{fill:#fff}
+/* .bg-black .navbar-brand svg g,.bg-dark  .navbar-brand svg g,.bg-primary .navbar-brand svg g,.bg-info .navbar-brand svg g,.bg-success  .navbar-brand svg g,.bg-danger .navbar-brand svg g{fill:#fff} */
