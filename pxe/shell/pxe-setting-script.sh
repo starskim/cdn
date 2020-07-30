@@ -154,10 +154,10 @@ wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
 tar xzf oneinstack-full.tar.gz && rm -rf oneinstack-full.tar.gz
 
 ######## 代理 ########
-if [ $ens == ens192 ] ; then
-export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
-else
+if [ $ens == ens33 ] ; then
 export https_proxy=http://10.0.1.1:6152 http_proxy=http://10.0.1.1:6152 all_proxy=socks5://10.0.1.1:6153
+else
+export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
 fi
 
 ######## ddns ########
