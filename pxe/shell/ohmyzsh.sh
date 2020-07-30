@@ -10,11 +10,11 @@ git pull
 cd ~
 fi
 chsh -s /bin/zsh
-wget -c -O ~/.zshrc https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/.zshrc
+wget -c -O ~/.zshrc https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/.zshrc
 cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 echo 'robbyrussell-ascii.zsh-theme'
 if [ ! -e "./themes/robbyrussell-ascii.zsh-theme" ];then
-wget -c -O ./themes/robbyrussell-ascii.zsh-theme https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/robbyrussell-ascii.zsh-theme
+wget -c -O ./themes/robbyrussell-ascii.zsh-theme https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/robbyrussell-ascii.zsh-theme
 fi
 echo 'powerlevel10k'
 if [ ! -e "./themes/powerlevel10k" ];then

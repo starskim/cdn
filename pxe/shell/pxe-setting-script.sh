@@ -165,19 +165,19 @@ echo 'ddns'
 if [ ! -e "~/DDNS" ];then
 git clone https://github.com/NewFuture/DDNS.git ~/DDNS
 cd ~/DDNS
-wget -c https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/ddns/config.json
+wget -c https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/ddns/config.json
 else
 cd ~/DDNS
 git pull
-wget -c https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/ddns/config.json
+wget -c https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/ddns/config.json
 cd ~
 fi
 
 ######## zsh ########
-sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/ohmyzsh.sh)"
+sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh)"
 
 ######## git ########
-sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/installgit.sh)"
+sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh)"
 
 ######## 删除预设的脚本 ########
 sed -i '/.*pxe-setting-script\.sh.*/d' /etc/rc.d/rc.local
