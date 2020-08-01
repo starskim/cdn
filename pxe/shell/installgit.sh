@@ -2,9 +2,9 @@
 
 # Install Git
 cd ~
-wget -c https://www.kernel.org/pub/software/scm/git/git-2.27.0.tar.gz
-tar -zxvf git-2.27.0.tar.gz && rm -rf git-2.27.0.tar.gz
-cd git-2.27.0
+wget -c https://www.kernel.org/pub/software/scm/git/git-2.28.0.tar.gz
+tar -zxvf git-2.28.0.tar.gz
+cd git-2.28.0
 make configure
 ./configure --prefix=/usr/local/git
 make profix=/usr/local/git
