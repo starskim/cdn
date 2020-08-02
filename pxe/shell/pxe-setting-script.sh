@@ -19,10 +19,10 @@ cat <<EOF >> /etc/sysctl.conf
 vm.overcommit_memory = 1
 
 # 单个进程允许的最大 fd 数量
-fs.file-max = 10245760000
+fs.file-max = 1024576000
 
 # linux 内核允许的最大 fd 数量
-fs.nr_open = 10245760000
+fs.nr_open = 1024576000
 
 # 数据包转发
 net.    4.ip_forward = 1
