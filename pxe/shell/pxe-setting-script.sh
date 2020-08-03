@@ -25,7 +25,7 @@ fs.file-max = 1024576000
 fs.nr_open = 1024576000
 
 # 数据包转发
-net.    4.ip_forward = 1
+net.ipv4.ip_forward = 1
 
 # 防范syn攻击
 net.ipv4.tcp_syncookies = 1
