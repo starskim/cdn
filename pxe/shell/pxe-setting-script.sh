@@ -3,7 +3,7 @@
 ######## hostname ########
 LOCAL_IPADDR=$(hostname -I | cut -d ' ' -f 1)
 PTR_ANSWER=$(dig +short -x "$LOCAL_IPADDR")
-ens=$(cat /proc/net/dev | awk '{i++; if(i>3){print $1}}' | sed 's/^[\t]*//g' | sed 's/[:]*$//g')
+ens=$(cat /proc/net/dev | awk '$1 ~ /ens/ {print $1}' | sed 's/^[\t]*//g' | sed 's/[:]*$//g')
 if [ -z "$PTR_ANSWER" ] ; then
     hostname=linux_$(sed 's/://g' < /sys/class/net/$ens/address | cut -c 7-12)
 else
@@ -156,7 +156,8 @@ tar xzf oneinstack-full.tar.gz
 ######## 代理 ########
 if [ $ens == ens33 ] ; then
 export https_proxy=http://10.0.1.1:6152 http_proxy=http://10.0.1.1:6152 all_proxy=socks5://10.0.1.1:6153
-else
+fi
+if [ $ens == ens192 ] ; then
 export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
 fi
 

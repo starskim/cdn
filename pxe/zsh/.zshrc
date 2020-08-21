@@ -141,4 +141,11 @@ bindkey -s "^[Oo" "/"
 
 HIST_STAMPS="yyyy-mm-dd"
 
+######## 代理 ########
+ens=$(cat /proc/net/dev | awk '$1 ~ /ens/ {print $1}' | sed 's/^[\t]*//g' | sed 's/[:]*$//g')
+if [ $ens == ens33 ] ; then
+export https_proxy=http://10.0.1.1:6152 http_proxy=http://10.0.1.1:6152 all_proxy=socks5://10.0.1.1:6153
+fi
+if [ $ens == ens192 ] ; then
 export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
+fi
