@@ -1,6 +1,6 @@
 window.$crisp = []; window.CRISP_WEBSITE_ID = "c284a5b8-44b6-449a-bde9-7b2be1a13d23"; (function () { d = document; s = d.createElement("script"); s.src = "https://client.crisp.chat/l.js"; s.async = 1; d.getElementsByTagName("head")[0].appendChild(s); })();
 /* 标签title切换 */
-var OriginTitile = document.title, titleTime;
+/* var OriginTitile = document.title, titleTime;
 document.addEventListener("visibilitychange",
     function () {
         if (document.hidden) {
@@ -13,7 +13,7 @@ document.addEventListener("visibilitychange",
             },
                 2000)
         }
-    });
+    }); */
 
 /* 鼠标特效 */
 var a_idx = 0;
