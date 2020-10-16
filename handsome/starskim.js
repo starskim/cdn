@@ -16,7 +16,7 @@ document.addEventListener("visibilitychange",
     }); */
 
 /* 鼠标特效 */
-var a_idx = 0;
+/* var a_idx = 0;
 jQuery(document).ready(function ($) {
     $("body").click(function (e) {
         var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
@@ -42,11 +42,11 @@ jQuery(document).ready(function ($) {
                 $i.remove();
             });
     });
-});
-document.onkeydown = function(){
+}); */
+/* document.onkeydown = function(){
     if(window.event && window.event.keyCode == 123) {
         layer.msg("F12被禁用");
         event.keyCode=0;
         event.returnValue=false;
     }
-}
+} */
