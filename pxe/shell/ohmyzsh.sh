@@ -1,7 +1,6 @@
 #!/bin/bash
 cd ~
 # Install oh-my-zsh
-# export https_proxy=http://10.0.0.251:10809 http_proxy=http://10.0.0.251:10809 all_proxy=socks5://10.0.0.251:10808
 if [ ! -e "~/.oh-my-zsh" ];then
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 else

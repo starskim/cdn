@@ -166,11 +166,9 @@ echo 'ddns'
 if [ ! -e "~/DDNS" ];then
 git clone https://github.com/NewFuture/DDNS.git ~/DDNS
 cd ~/DDNS
-wget -c https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/ddns/config.json
 else
 cd ~/DDNS
 git pull
-wget -c https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/ddns/config.json
 cd ~
 fi
 
