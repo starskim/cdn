@@ -154,12 +154,12 @@ wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
 tar xzf oneinstack-full.tar.gz
 
 ######## 代理 ########
-if [ $ens == ens33 ] ; then
 export https_proxy=http://10.0.0.2:6152 http_proxy=http://10.0.0.2:6152 all_proxy=socks5://10.0.0.2:6153
-fi
-if [ $ens == ens192 ] ; then
-export https_proxy=http://10.0.0.251:7890 http_proxy=http://10.0.0.251:7890 all_proxy=socks5://10.0.0.251:7891
-fi
+
+######## Docker Compose ########
+curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
 
 ######## git ########
 sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh)"
