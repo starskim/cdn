@@ -2,7 +2,7 @@
 
 # Install Git
 cd ~
-wget -c https://www.kernel.org/pub/software/scm/git/git-2.29.2.tar.gz
+wget -c https://www.kernel.org/pub/software/scm/git/git-2.30.0.tar.gz
 tar -zxvf git-2.30.0.tar.gz
 cd git-2.30.0
 make configure

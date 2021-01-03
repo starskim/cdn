@@ -8,7 +8,6 @@ cd ~/.oh-my-zsh
 git pull
 cd ~
 fi
-chsh -s /bin/zsh
 wget -c -O ~/.zshrc https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/.zshrc
 cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 echo 'robbyrussell-ascii.zsh-theme'
@@ -54,3 +53,4 @@ cd zsh-5.8
 ./configure --with-tcsetpgrp && make && make install
 /usr/local/bin/zsh --version
 echo "/usr/local/bin/zsh" | tee -a /etc/shells
+chsh -s $(which zsh)
