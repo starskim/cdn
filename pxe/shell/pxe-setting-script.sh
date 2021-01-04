@@ -145,8 +145,8 @@ pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
 pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip3 install glances
 
-######## chrony ########
-curl -o /etc/chrony.conf https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/chrony.conf
+######## crontab ########
+echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
 
 ######## OneinStack ########
 cd ~
