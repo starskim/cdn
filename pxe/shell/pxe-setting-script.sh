@@ -153,9 +153,6 @@ cd ~
 wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
 tar xzf oneinstack-full.tar.gz
 
-######## 代理 ########
-export https_proxy=http://10.0.0.2:6152 http_proxy=http://10.0.0.2:6152 all_proxy=socks5://10.0.0.2:6153
-
 ######## Docker Compose ########
 curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
