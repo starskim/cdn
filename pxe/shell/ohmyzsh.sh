@@ -32,7 +32,7 @@ cd ..
 fi
 echo 'zsh-syntax-highlighting'
 if [ ! -e "./zsh-syntax-highlighting" ];then
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ./zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ./zsh-syntax-highlighting
 else
 cd ./zsh-syntax-highlighting
 git pull
