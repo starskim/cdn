@@ -1,58 +1,32 @@
-[epel]
-name=Extra Packages for Enterprise Linux 7 - $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/epel/7/$basearch
-failovermethod=priority
-enabled=1
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/epel/RPM-GPG-KEY-EPEL-7
-
-[epel-debuginfo]
-name=Extra Packages for Enterprise Linux 7 - $basearch - Debug
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/epel/7/$basearch/debug
-failovermethod=priority
-enabled=0
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/epel/RPM-GPG-KEY-EPEL-7
-gpgcheck=1
-
-[epel-source]
-name=Extra Packages for Enterprise Linux 7 - $basearch - Source
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/epel/7/SRPMS
-failovermethod=priority
-enabled=0
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/epel/RPM-GPG-KEY-EPEL-7
-gpgcheck=1
-
 [base]
 name=CentOS-$releasever - Base
 baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/os/$basearch/
 gpgcheck=1
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/centos/RPM-GPG-KEY-CentOS-7
 
-#released updates
 [updates]
 name=CentOS-$releasever - Updates
 baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/updates/$basearch/
 gpgcheck=1
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/centos/RPM-GPG-KEY-CentOS-7
 
-#additional packages that may be useful
 [extras]
 name=CentOS-$releasever - Extras
 baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/extras/$basearch/
 gpgcheck=1
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/centos/RPM-GPG-KEY-CentOS-7
 
-#additional packages that extend functionality of existing packages
-[centosplus]
-name=CentOS-$releasever - Plus
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos/$releasever/centosplus/$basearch/
+[epel]
+name=Extra Packages for Enterprise Linux $releasever - $basearch
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/epel/$releasever/$basearch
+failovermethod=priority
+enabled=1
 gpgcheck=1
-enabled=0
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/centos/RPM-GPG-KEY-CentOS-7
+gpgkey=https://mirrors.tuna.tsinghua.edu.cn/epel/RPM-GPG-KEY-EPEL-7
 
-[elasticsearch]
-name=Elasticsearch repository for 7.x packages
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/elasticstack/yum/elastic-7.x/
+[elastic-7.x]
+name=Elastic repository for 7.x packages
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/elasticstack/7.x/yum/
 gpgcheck=0
 enabled=1
 autorefresh=1
@@ -60,90 +34,47 @@ type=rpm-md
 
 [docker-ce-stable]
 name=Docker CE Stable - $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/$basearch/stable
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/$releasever/$basearch/stable
 enabled=1
 gpgcheck=1
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
 
-[docker-ce-stable-debuginfo]
-name=Docker CE Stable - Debuginfo $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/debug-$basearch/stable
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-stable-source]
-name=Docker CE Stable - Sources
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/source/stable
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-edge]
-name=Docker CE Edge - $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/$basearch/edge
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-edge-debuginfo]
-name=Docker CE Edge - Debuginfo $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/debug-$basearch/edge
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-edge-source]
-name=Docker CE Edge - Sources
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/source/edge
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-test]
-name=Docker CE Test - $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/$basearch/test
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-test-debuginfo]
-name=Docker CE Test - Debuginfo $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/debug-$basearch/test
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-test-source]
-name=Docker CE Test - Sources
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/source/test
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-nightly]
-name=Docker CE Nightly - $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/$basearch/nightly
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-nightly-debuginfo]
-name=Docker CE Nightly - Debuginfo $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/debug-$basearch/nightly
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
-
-[docker-ce-nightly-source]
-name=Docker CE Nightly - Sources
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/7/source/nightly
-enabled=0
-gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
 
 [kubernetes]
-name=Kubernetes Repo
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/kubernetes/yum/repos/kubernetes-el7-x86_64/
+name=Kubernetes
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/kubernetes/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=0
+
+[gitlab-ce]
+name=Gitlab CE Repository
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el$releasever/
+gpgcheck=0
+enabled=1
+
+[gh-cli]
+name=packages for the GitHub CLI
+baseurl=https://cli.github.com/packages/rpm
+enabled=1
+gpgkey=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xc99b11deb97541f0
+
+[zabbix]
+name=Zabbix Official Repository - $basearch
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/zabbix/zabbix/5.4/rhel/$releasever/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=https://mirrors.tuna.tsinghua.edu.cn/zabbix/RPM-GPG-KEY-ZABBIX-A14FE591
+
+[zabbix-non-supported]
+name=Zabbix Official Repository non-supported - $basearch
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/zabbix/non-supported/rhel/$releasever/$basearch/
+enabled=1
+gpgkey=https://mirrors.tuna.tsinghua.edu.cn/zabbix/RPM-GPG-KEY-ZABBIX
+gpgcheck=1
+
+[mariadb-main]
+name = MariaDB Server
+baseurl = https://mirrors.tuna.tsinghua.edu.cn/mariadb/yum/10.6/centos7-amd64
+gpgkey = https://mirrors.tuna.tsinghua.edu.cn/mariadb/yum/RPM-GPG-KEY-MariaDB
+gpgcheck = 1
+enabled = 1

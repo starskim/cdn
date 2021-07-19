@@ -1,128 +1,51 @@
 #!/bin/bash
 
 ######## hostname ########
-LOCAL_IPADDR=$(hostname -I | cut -d ' ' -f 1)
-PTR_ANSWER=$(dig +short -x "$LOCAL_IPADDR")
-ens=$(cat /proc/net/dev | awk '$1 ~ /ens/ {print $1}' | sed 's/^[\t]*//g' | sed 's/[:]*$//g')
-if [ -z "$PTR_ANSWER" ] ; then
-    hostname=linux_$(sed 's/://g' < /sys/class/net/$ens/address | cut -c 7-12)
-else
-    hostname=$(echo "$PTR_ANSWER" | cut -d '.' -f 1)
-fi
-
-hostnamectl set-hostname "$hostname"
+sh -c "$(curl -fsSL https://pxe.starskim.com/shell/hostname.sh)"
 
 ######## sysctl ########
+[ ! -e "/etc/sysctl.conf_bk" ] && /bin/mv /etc/sysctl.conf{,_bk}
 cat <<EOF >> /etc/sysctl.conf
-
-# 允许内核分配所有可用的物理内存
-vm.overcommit_memory = 1
-
-# 单个进程允许的最大 fd 数量
-fs.file-max = 1024576000
-
-# linux 内核允许的最大 fd 数量
-fs.nr_open = 1024576000
-
-# 数据包转发
-net.ipv4.ip_forward = 1
-
-# 防范syn攻击
-net.ipv4.tcp_syncookies = 1
-
-# 禁用重用time_wait的tcp端口
-net.ipv4.tcp_tw_reuse = 0
-
-# fin_wait超时时间
-net.ipv4.tcp_fin_timeout = 15
-
-# 动态分配端口的范围
-net.ipv4.ip_local_port_range = 20000 65535
-
-# 套接字最大数量
-net.ipv4.tcp_max_tw_buckets = 65535
-
-# syn队列长度
-net.ipv4.tcp_max_syn_backlog = 10240
-
-# 最大设备队列长度
-net.core.netdev_max_backlog = 10240
-
-# listen()等待请求的最大数量
-net.core.somaxconn = 10240
-
-# tcp 连接丢包重传次数，达到此值将刷新路由缓存
-net.ipv4.tcp_retries1 = 2
-
-# tcp 连接丢包重传次数，达到此值将断开 TCP 连接
-net.ipv4.tcp_retries2 = 4
-
-# 放弃建立连接前内核发送syn包的数量
-net.ipv4.tcp_syn_retries = 2
-
-# 放弃连接前内核发送syn+ack包的数量
+fs.file-max=1000000
+net.ipv4.tcp_max_tw_buckets = 6000
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_rmem = 4096 87380 4194304
+net.ipv4.tcp_wmem = 4096 16384 4194304
+net.ipv4.tcp_max_syn_backlog = 16384
+net.core.netdev_max_backlog = 32768
+net.core.somaxconn = 32768
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.ipv4.tcp_timestamps = 1
+net.ipv4.tcp_fin_timeout = 20
 net.ipv4.tcp_synack_retries = 2
-
-# keepalive idle空闲时间
-net.ipv4.tcp_keepalive_time = 30
-
-# keepalive intvl间隔时间
-net.ipv4.tcp_keepalive_intvl = 2
-
-# keepalive probes最大探测次数
-net.ipv4.tcp_keepalive_probes = 3
-
-# 内核允许的最大孤立socket数量
-net.ipv4.tcp_max_orphans = 4096
-
-# socket默认读buffer大小
-net.core.rmem_default = 655350
-
-# socket默认写buffer大小
-net.core.wmem_default = 655350
-
-# socket最大读buffer大小
-net.core.rmem_max = 65535000
-
-# socket最大写buffer大小
-net.core.wmem_max = 65535000
-
-# socket最大内存buffer大小
-net.core.optmem_max = 65535000
-
-# tcp_socket读buffer大小. min/default/max
-net.ipv4.tcp_rmem = 16384 1048576 12582912
-
-# tcp_socket写buffer大小. min/default/max
-net.ipv4.tcp_wmem = 16384 1048576 12582912
-
-# 开启tcp_fastopen
-net.ipv4.tcp_fastopen = 3
-
-# 在路由中缓存 TCP 连接的各项指标
-net.ipv4.tcp_no_metrics_save = 0
-
-# 在连接空闲期间保持拥塞窗口的大小
-net.ipv4.tcp_slow_start_after_idle = 0
-
-# 磁盘
-vm.dirty_background_ratio = 20
-vm.dirty_ratio = 30
-vm.dirty_expire_centisecs = 1000
-vm.dirty_writeback_centisecs =  = 300
-vm.min_free_kbytes = 65536
-vm.swappiness = 1
-
+net.ipv4.tcp_syn_retries = 2
+net.ipv4.tcp_syncookies = 1
+#net.ipv4.tcp_tw_len = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_mem = 94500000 915000000 927000000
+net.ipv4.tcp_max_orphans = 3276800
+net.ipv4.ip_local_port_range = 1024 65000
+net.nf_conntrack_max = 6553500
+net.netfilter.nf_conntrack_max = 6553500
+net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
+net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
+net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
+net.netfilter.nf_conntrack_tcp_timeout_established = 3600
 EOF
 
 ######## limits ########
-cat <<EOF >> /etc/security/limits.conf
-
-*    soft    nofile          65535
-*    hard    nofile          65535
-*    soft    memlock         unlimited
-*    hard    memlock         unlimited
-
+[ -e /etc/security/limits.d/*nproc.conf ] && rename nproc.conf nproc.conf_bk /etc/security/limits.d/*nproc.conf
+sed -i '/^# End of file/,$d' /etc/security/limits.conf
+cat >> /etc/security/limits.conf <<EOF
+# End of file
+* soft nproc 1000000
+* hard nproc 1000000
+* soft nofile 1000000
+* hard nofile 1000000
 EOF
 
 ######## PAM ########
@@ -154,14 +77,14 @@ wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
 tar xzf oneinstack-full.tar.gz
 
 ######## Docker Compose ########
-curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 ######## git ########
-sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh)"
+sh -c "$(curl -fsSL https://pxe.starskim.com/shell/installgit.sh)"
 
 ######## zsh ########
-sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh)"
+sh -c "$(curl -fsSL https://pxe.starskim.com/shell/ohmyzsh.sh)"
 
 ######## 删除预设的脚本 ########
 sed -i '/.*pxe-setting-script\.sh.*/d' /etc/rc.d/rc.local

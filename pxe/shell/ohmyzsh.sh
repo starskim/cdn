@@ -8,11 +8,11 @@ cd ~/.oh-my-zsh
 git pull
 cd ~
 fi
-wget -c -O ~/.zshrc https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/.zshrc
+wget -c -O ~/.zshrc https://pxe.starskim.com/zsh/.zshrc
 cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 echo 'robbyrussell-ascii.zsh-theme'
 if [ ! -e "./themes/robbyrussell-ascii.zsh-theme" ];then
-wget -c -O ./themes/robbyrussell-ascii.zsh-theme https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/robbyrussell-ascii.zsh-theme
+wget -c -O ./themes/robbyrussell-ascii.zsh-theme https://pxe.starskim.com/zsh/robbyrussell-ascii.zsh-theme
 fi
 echo 'powerlevel10k'
 if [ ! -e "./themes/powerlevel10k" ];then
@@ -47,7 +47,7 @@ git pull
 cd ..
 fi
 cd ~
-wget -c -O zsh-5.8.tar.xz https://sourceforge.net/projects/zsh/files/zsh/5.8/zsh-5.8.tar.xz/download
+wget -c -O zsh-5.8.tar.xz https://pxe.starskim.com/zsh/zsh-5.8.tar.xz
 tar xvf zsh-5.8.tar.xz
 cd zsh-5.8
 ./configure --with-tcsetpgrp && make && make install
