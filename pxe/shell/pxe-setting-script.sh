@@ -1,11 +1,23 @@
 #!/bin/bash
 
+CentOS_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
+
 ######## hostname ########
-sh -c "$(curl -fsSL https://pxe.starskim.com/shell/hostname.sh)"
+if [ "${CentOS_ver}" == '7' ]; then
+  sh -c "$(curl -fsSL https://pxe.starskim.com/shell/hostname.sh)"
+fi
+if [ "${CentOS_ver}" == '8' ]; then
+  /bin/bash /root/hostname.sh
+fi
+
+######## sysctl ########
+[[ ! "${OS}" =~ ^EulerOS$|^openEuler$ ]] && [ -z "$(grep ^'PROMPT_COMMAND=' /etc/bashrc)" ] && cat >> /etc/bashrc << EOF
+PROMPT_COMMAND='{ msg=\$(history 1 | { read x y; echo \$y; });logger "[euid=\$(whoami)]":\$(who am i):[\`pwd\`]"\$msg"; }'
+EOF
 
 ######## sysctl ########
 [ ! -e "/etc/sysctl.conf_bk" ] && /bin/mv /etc/sysctl.conf{,_bk}
-cat <<EOF >> /etc/sysctl.conf
+cat > /etc/sysctl.conf << EOF
 fs.file-max=1000000
 net.ipv4.tcp_max_tw_buckets = 6000
 net.ipv4.tcp_sack = 1
@@ -54,41 +66,64 @@ echo "session required /usr/lib64/security/pam_limits.so" >> /etc/pam.d/login
 ######## repo ########
 rm -f /etc/yum.repos.d/Centos*.repo
 rm -f /etc/yum.repos.d/epel*.repo
+rm -f /etc/yum.repos.d/zabbix*.repo
 yum clean all
-yum install -y iftop htop python-pip python3-pip python3-devel python3 bash-completion bash-completion-extras vim wget gcc \
-  ntpdate ntp ncurses-devel deltarpm gcc-c++ make cmake autoconf libjpeg libjpeg-devel libjpeg-turbo \
-  libjpeg-turbo-devel libpng libpng-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel \
-  krb5-devel libc-client libc-client-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel libaio numactl \
-  numactl-libs readline-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel \
-  net-tools libxslt-devel libicu-devel libevent-devel libtool libtool-ltdl bison gd-devel vim-enhanced pcre-devel libmcrypt \
-  libmcrypt-devel mhash mhash-devel mcrypt zip unzip sqlite-devel sysstat patch bc \
-  expect expat-devel oniguruma oniguruma-devel libtirpc-devel nss rsync rsyslog git lsof lrzsz \
-  psmisc which libatomic tmux gettext-devel perl-ExtUtils-MakeMaker redhat-lsb-core docker-ce
+pkgList="iftop htop python2-pip python2-devel python2 python3-pip python3-devel python3 bash-completion bash-completion-extras vim wget gcc ntpdate ntp ncurses-devel deltarpm gcc-c++ make cmake autoconf libjpeg libjpeg-devel libjpeg-turbo libjpeg-turbo-devel libpng libpng-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel krb5-devel libc-client libc-client-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel libaio numactl numactl-libs readline-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel net-tools libxslt-devel libicu-devel libevent-devel libtool libtool-ltdl bison gd-devel vim-enhanced pcre-devel libmcrypt libmcrypt-devel mhash mhash-devel mcrypt zip unzip sqlite-devel sysstat patch bc expect expat-devel oniguruma oniguruma-devel libtirpc-devel nss rsync rsyslog git lsof lrzsz psmisc which libatomic tmux gettext-devel perl-ExtUtils-MakeMaker redhat-lsb-core docker-ce cmake3 libzip libzip-devel wget chrony rpcgen zabbix-agent"
+for Package in ${pkgList}; do
+  yum -y install ${Package}
+done
 pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U
 pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip3 install glances
 
-######## crontab ########
-echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
+######## Update time ########
+if [ -e "$(which ntpdate)" ]; then
+  ntpdate 10.0.0.254
+  echo "*/5 * * * * root ntpdate 10.0.0.254" >> /etc/crontab
+fi
 
 ######## OneinStack ########
 cd ~
-wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
-tar xzf oneinstack-full.tar.gz
+if [ ! -e "./oneinstack" ];then
+  wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz
+  tar xzf oneinstack-full.tar.gz
+  rm -rf oneinstack-full.tar.gz
+fi
 
 ######## Docker Compose ########
-curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+if [ -e "$(which docker)" ]; then
+  if [ ! -e "/usr/local/bin/docker-compose" ];then
+    curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+  fi  
+  systemctl enable docker
+  systemctl start docker
+fi
 
+######## zabbix ########
+if [ -e "$(which zabbix_agentd)" ]; then
+  sed -i 's/^Server=.*$/Server=0.0.0.0\/0,::\/0/' /etc/zabbix/zabbix_agentd.conf
+  sed -i 's/^ServerActive=.*$/ServerActive=10.0.0.248/' /etc/zabbix/zabbix_agentd.conf
+  sed -i 's/^Hostname=.*$/Hostname='$(hostname)'/' /etc/zabbix/zabbix_agentd.conf
+  systemctl enable zabbix-agent
+  systemctl start zabbix-agent
+fi
 ######## git ########
-sh -c "$(curl -fsSL https://pxe.starskim.com/shell/installgit.sh)"
+if [ "${CentOS_ver}" == '7' ]; then
+  sh -c "$(curl -fsSL https://pxe.starskim.com/shell/installgit.sh)"
+fi
 
 ######## zsh ########
-sh -c "$(curl -fsSL https://pxe.starskim.com/shell/ohmyzsh.sh)"
-
+if [ "${CentOS_ver}" == '7' ]; then
+  sh -c "$(curl -fsSL https://pxe.starskim.com/shell/ohmyzsh.sh)"
+fi
+if [ "${CentOS_ver}" == '8' ]; then
+  /bin/bash /root/ohmyzsh.sh
+fi
 ######## 删除预设的脚本 ########
 sed -i '/.*pxe-setting-script\.sh.*/d' /etc/rc.d/rc.local
 rm -rf /etc/rc.local && ln -s /etc/rc.d/rc.local /etc/rc.local
+rm -rf /root/*.sh
 rm -f ~/*.cfg
 
 ######## 重启 ########

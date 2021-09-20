@@ -1,56 +1,68 @@
 #!/bin/bash
+
+CentOS_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
+
 cd ~
 # Install oh-my-zsh
-if [ ! -e "~/.oh-my-zsh" ];then
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+if [ ! -e "/root/.oh-my-zsh" ];then
+    git clone https://github.com/ohmyzsh/ohmyzsh.git /root/.oh-my-zsh
 else
-cd ~/.oh-my-zsh
-git pull
+    cd ~/.oh-my-zsh
+    git pull
 cd ~
 fi
-wget -c -O ~/.zshrc https://pxe.starskim.com/zsh/.zshrc
-cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
-echo 'robbyrussell-ascii.zsh-theme'
-if [ ! -e "./themes/robbyrussell-ascii.zsh-theme" ];then
-wget -c -O ./themes/robbyrussell-ascii.zsh-theme https://pxe.starskim.com/zsh/robbyrussell-ascii.zsh-theme
-fi
-echo 'powerlevel10k'
-if [ ! -e "./themes/powerlevel10k" ];then
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ./themes/powerlevel10k
-else
-cd ./themes/powerlevel10k
-git pull
-fi
-cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins
-echo 'zsh-completions'
-if [ ! -e "./zsh-completions" ];then
-git clone https://github.com/zsh-users/zsh-completions ./zsh-completions
-else
-cd ./zsh-completions
-git pull
-cd ..
-fi
-echo 'zsh-syntax-highlighting'
-if [ ! -e "./zsh-syntax-highlighting" ];then
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ./zsh-syntax-highlighting
-else
-cd ./zsh-syntax-highlighting
-git pull
-cd ..
-fi
-echo 'zsh-autosuggestions'
-if [ ! -e "./zsh-autosuggestions" ];then
-git clone https://github.com/zsh-users/zsh-autosuggestions ./zsh-autosuggestions
-else
-cd ./zsh-autosuggestions
-git pull
-cd ..
+omz=${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}
+if [ -e "/root/.oh-my-zsh" ];then
+    wget -c -O /root/.zshrc https://pxe.starskim.com/zsh/.zshrc
+    cd ${omz}
+    echo 'robbyrussell-ascii.zsh-theme'
+    if [ ! -e "${omz}/themes/robbyrussell-ascii.zsh-theme" ];then
+        wget -c -O ${omz}/themes/robbyrussell-ascii.zsh-theme https://pxe.starskim.com/zsh/robbyrussell-ascii.zsh-theme
+    fi
+    echo 'powerlevel10k'
+    if [ ! -e "${omz}/themes/powerlevel10k" ];then
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${omz}/themes/powerlevel10k
+    else
+        cd ${omz}/themes/powerlevel10k
+        git pull
+    fi
+    cd ${omz}/plugins
+    echo 'zsh-completions'
+    if [ ! -e "${omz}/plugins/zsh-completions" ];then
+        git clone https://github.com/zsh-users/zsh-completions ${omz}/plugins/zsh-completions
+    else
+        cd ${omz}/plugins/zsh-completions
+        git pull
+        cd ..
+    fi
+    echo 'zsh-syntax-highlighting'
+    if [ ! -e "${omz}/plugins/zsh-syntax-highlighting" ];then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting ${omz}/plugins/zsh-syntax-highlighting
+    else
+        cd ${omz}/plugins/zsh-syntax-highlighting
+        git pull
+        cd ..
+    fi
+    echo 'zsh-autosuggestions'
+    if [ ! -e "${omz}/plugins/zsh-autosuggestions" ];then
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${omz}/plugins/zsh-autosuggestions
+    else
+        cd ${omz}/plugins/zsh-autosuggestions
+        git pull
+        cd ..
+    fi
 fi
 cd ~
-wget -c -O zsh-5.8.tar.xz https://pxe.starskim.com/zsh/zsh-5.8.tar.xz
-tar xvf zsh-5.8.tar.xz
-cd zsh-5.8
-./configure --with-tcsetpgrp && make && make install
-/usr/local/bin/zsh --version
-echo "/usr/local/bin/zsh" | tee -a /etc/shells
+zsh_version=$(zsh --version | awk '{print $2}')
+if [ "${CentOS_ver}" == '7' ]; then
+    if [ "${zsh_version}" != '5.8' ]; then
+        wget -c -O zsh-5.8.tar.xz https://pxe.starskim.com/zsh/zsh-5.8.tar.xz
+        tar xvf zsh-5.8.tar.xz
+        rm -rf zsh-5.8.tar.xz
+        cd zsh-5.8
+        ./configure --with-tcsetpgrp && make && make install
+        /usr/local/bin/zsh --version
+        echo "/usr/local/bin/zsh" | tee -a /etc/shells
+    fi
+fi
 chsh -s $(which zsh)
