@@ -13,11 +13,11 @@ cd ~
 fi
 omz=${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}
 if [ -e "/root/.oh-my-zsh" ];then
-    wget -c -O /root/.zshrc https://pxe.starskim.com/zsh/.zshrc
+    wget -c -O /root/.zshrc https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/.zshrc
     cd ${omz}
     echo 'robbyrussell-ascii.zsh-theme'
     if [ ! -e "${omz}/themes/robbyrussell-ascii.zsh-theme" ];then
-        wget -c -O ${omz}/themes/robbyrussell-ascii.zsh-theme https://pxe.starskim.com/zsh/robbyrussell-ascii.zsh-theme
+        wget -c -O ${omz}/themes/robbyrussell-ascii.zsh-theme https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/robbyrussell-ascii.zsh-theme
     fi
     echo 'powerlevel10k'
     if [ ! -e "${omz}/themes/powerlevel10k" ];then
@@ -56,7 +56,7 @@ cd ~
 zsh_version=$(zsh --version | awk '{print $2}')
 if [ "${CentOS_ver}" == '7' ]; then
     if [ "${zsh_version}" != '5.8' ]; then
-        wget -c -O zsh-5.8.tar.xz https://pxe.starskim.com/zsh/zsh-5.8.tar.xz
+        wget -c -O zsh-5.8.tar.xz https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/zsh-5.8.tar.xz
         tar xvf zsh-5.8.tar.xz
         rm -rf zsh-5.8.tar.xz
         cd zsh-5.8
