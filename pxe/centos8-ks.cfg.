@@ -1,0 +1,79 @@
+#platform=x86, AMD64, or Intel EM64T
+#version=DEVEL
+# Install OS instead of upgrade
+install
+# Keyboard layouts
+keyboard us
+# Root password
+rootpw --iscrypted $6$NhboVy.HOkpXT5aM$poptKUFoEFxdqNZm62KygGvcxyomFcUTrI9DoL06gL2ck8bi4NXXsOJxUNbpAlCv/dd6ssoan25yy295T2weO0
+# Use network installation
+url --url="https://mirrors.tuna.tsinghua.edu.cn/centos/8-stream/BaseOS/x86_64/os"
+repo --name="AppStream" --baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos/8-stream/AppStream/x86_64/os
+# System language
+lang en_US
+# System authorization information
+auth  --useshadow  --passalgo=sha512
+# Use text mode install
+text
+# SELinux configuration
+selinux --disabled
+# Do not configure the X Window System
+skipx
+# Firewall configuration
+firewall --disabled
+# Network information
+network  --bootproto=dhcp --device=eth0
+# Reboot after installation
+reboot
+# System timezone
+timezone Asia/Shanghai
+# System bootloader configuration
+bootloader --location=mbr
+# Clear the Master Boot Record 
+zerombr
+# Partition clearing information
+clearpart --all --initlabel
+# Disk partitioning information
+ignoredisk --only-use=sda
+autopart
+
+%packages
+
+@core 
+perl
+wget
+bind-utils
+net-tools
+telnet
+git
+zsh
+tree
+yum-utils
+nfs-utils
+
+%end
+
+
+%addon com_redhat_kdump --disable
+
+
+%end
+
+
+%post
+mkdir -p /log
+mkdir -p /root/.ssh
+chmod 755 /root/.ssh/
+curl -o /root/.ssh/authorized_keys https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
+curl -o /root/pxe-setting-script.sh https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/pxe-setting-script.sh
+curl -o /root/hostname.sh https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh
+curl -o /root/ohmyzsh.sh https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh
+echo "/bin/bash /root/pxe-setting-script.sh > /log/$(date +"%Y%m%d").log" >> /etc/rc.local
+chmod +x /etc/rc.d/rc.local
+rm -f /etc/yum.repos.d/*
+curl -o /etc/yum.repos.d/home.repo https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/Centos8.repo
+yum clean all && yum install epel-release zabbix-release -y && rm -f /etc/yum.repos.d/{epel*,zabbix*} && yum update -y
+rm -f /etc/yum.repos.d/CentOS-* && rm -f /etc/yum.repos.d/epel* && rm -f /etc/yum.repos.d/zabbix*
+
+%end
