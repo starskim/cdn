@@ -2,9 +2,12 @@
 
 CentOS_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
 
+echo $CentOS_ver
+echo $CentOS_ver > centos.txt
+
 ######## hostname ########
 if [ "${CentOS_ver}" == '7' ]; then
-  sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh)"
+  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh" | /bin/sh
 fi
 if [ "${CentOS_ver}" == '8' ]; then
   /bin/bash /root/hostname.sh
@@ -110,12 +113,12 @@ if [ -e "$(which zabbix_agentd)" ]; then
 fi
 ######## git ########
 if [ "${CentOS_ver}" == '7' ]; then
-  sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh)"
+  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh" | /bin/sh
 fi
 
 ######## zsh ########
 if [ "${CentOS_ver}" == '7' ]; then
-  sh -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh)"
+  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh" | /bin/sh
 fi
 if [ "${CentOS_ver}" == '8' ]; then
   /bin/bash /root/ohmyzsh.sh
