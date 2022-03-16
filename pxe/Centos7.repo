@@ -60,7 +60,7 @@ gpgkey=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xc99b11deb97541f0
 
 [zabbix]
 name=Zabbix Official Repository - $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/zabbix/zabbix/5.4/rhel/$releasever/$basearch/
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/zabbix/zabbix/6.0/rhel/$releasever/$basearch/
 enabled=1
 gpgcheck=1
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/zabbix/RPM-GPG-KEY-ZABBIX-A14FE591
