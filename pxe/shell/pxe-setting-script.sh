@@ -7,7 +7,7 @@ echo $CentOS_ver > /log/centos.txt
 
 ######## hostname ########
 if [ "${CentOS_ver}" == '7' ]; then
-  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh" | /bin/sh
+  curl -fsSL "https://cdm.starskim.cn/pxe/shell/hostname.sh" | /bin/sh
 fi
 if [ "${CentOS_ver}" == '8' ]; then
   /bin/bash /root/hostname.sh
@@ -113,12 +113,12 @@ if [ -e "$(which zabbix_agentd)" ]; then
 fi
 ######## git ########
 if [ "${CentOS_ver}" == '7' ]; then
-  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh" | /bin/sh
+  curl -fsSL "https://cdm.starskim.cn/pxe/shell/installgit.sh" | /bin/sh
 fi
 
 ######## zsh ########
 if [ "${CentOS_ver}" == '7' ]; then
-  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh" | /bin/sh
+  curl -fsSL "https://cdm.starskim.cn/pxe/shell/ohmyzsh.sh" | /bin/sh
 fi
 if [ "${CentOS_ver}" == '8' ]; then
   /bin/bash /root/ohmyzsh.sh
