@@ -42,6 +42,14 @@ gpgcheck=1
 countme=1
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/epel/RPM-GPG-KEY-EPEL-8
 
+[epel-next]
+name=Extra Packages for Enterprise Linux $releasever - Next - $basearch
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/epel/next/$releasever/Everything/$basearch/
+enabled=1
+gpgcheck=1
+countme=1
+gpgkey=https://mirrors.tuna.tsinghua.edu.cn/epel/RPM-GPG-KEY-EPEL-8
+
 [elastic-7.x]
 name=Elastic repository for 7.x packages
 baseurl=https://mirrors.tuna.tsinghua.edu.cn/elasticstack/7.x/yum/
