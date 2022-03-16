@@ -5,7 +5,7 @@ CentOS_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
 cd ~
 # Install oh-my-zsh
 if [ ! -e "/root/.oh-my-zsh" ];then
-    git clone https://github.com/ohmyzsh/ohmyzsh.git /root/.oh-my-zsh
+    git clone https://github.starskim.com/https://github.com/ohmyzsh/ohmyzsh.git /root/.oh-my-zsh
 else
     cd ~/.oh-my-zsh
     git pull
@@ -21,7 +21,7 @@ if [ -e "/root/.oh-my-zsh" ];then
     fi
     echo 'powerlevel10k'
     if [ ! -e "${omz}/themes/powerlevel10k" ];then
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${omz}/themes/powerlevel10k
+        git clone --depth=1 https://github.starskim.com/https://github.com/romkatv/powerlevel10k.git ${omz}/themes/powerlevel10k
     else
         cd ${omz}/themes/powerlevel10k
         git pull
@@ -29,7 +29,7 @@ if [ -e "/root/.oh-my-zsh" ];then
     cd ${omz}/plugins
     echo 'zsh-completions'
     if [ ! -e "${omz}/plugins/zsh-completions" ];then
-        git clone https://github.com/zsh-users/zsh-completions ${omz}/plugins/zsh-completions
+        git clone https://github.starskim.com/https://github.com/zsh-users/zsh-completions ${omz}/plugins/zsh-completions
     else
         cd ${omz}/plugins/zsh-completions
         git pull
@@ -37,7 +37,7 @@ if [ -e "/root/.oh-my-zsh" ];then
     fi
     echo 'zsh-syntax-highlighting'
     if [ ! -e "${omz}/plugins/zsh-syntax-highlighting" ];then
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting ${omz}/plugins/zsh-syntax-highlighting
+        git clone https://github.starskim.com/https://github.com/zsh-users/zsh-syntax-highlighting ${omz}/plugins/zsh-syntax-highlighting
     else
         cd ${omz}/plugins/zsh-syntax-highlighting
         git pull
@@ -45,7 +45,7 @@ if [ -e "/root/.oh-my-zsh" ];then
     fi
     echo 'zsh-autosuggestions'
     if [ ! -e "${omz}/plugins/zsh-autosuggestions" ];then
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${omz}/plugins/zsh-autosuggestions
+        git clone https://github.starskim.com/https://github.com/zsh-users/zsh-autosuggestions ${omz}/plugins/zsh-autosuggestions
     else
         cd ${omz}/plugins/zsh-autosuggestions
         git pull
