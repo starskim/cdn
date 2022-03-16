@@ -3,7 +3,7 @@
 CentOS_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
 
 echo $CentOS_ver
-echo $CentOS_ver > centos.txt
+echo $CentOS_ver > /log/centos.txt
 
 ######## hostname ########
 if [ "${CentOS_ver}" == '7' ]; then
