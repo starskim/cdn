@@ -3,11 +3,11 @@
 # Install Git
 cd ~
 git_version=$(git version | awk '{print $3}')
-if [ "${git_version}" != '2.34.1' ]; then
-    wget -c https://www.kernel.org/pub/software/scm/git/git-2.34.1.tar.gz
-    tar -zxvf git-2.34.1.tar.gz
-    rm -rf git-2.34.1.tar.gz
-    cd git-2.34.1
+if [ "${git_version}" != '2.35.1' ]; then
+    wget -c https://www.kernel.org/pub/software/scm/git/git-2.35.1.tar.gz
+    tar -zxvf git-2.35.1.tar.gz
+    rm -rf git-2.35.1.tar.gz
+    cd git-2.35.1
     make configure
     ./configure --prefix=/usr/local/git
     make profix=/usr/local/git
