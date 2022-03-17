@@ -66,3 +66,6 @@ if [ "${CentOS_ver}" == '7' ]; then
     fi
 fi
 chsh -s $(which zsh)
+zsh
+autoload -U compinit && compinit
+
