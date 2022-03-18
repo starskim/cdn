@@ -13,7 +13,7 @@ cd ~
 fi
 omz=${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}
 if [ -e "/root/.oh-my-zsh" ];then
-    wget -c -O /root/.zshrc https://cdn.starskim.cn/pxe/zsh/.zshrc
+    wget -c -O /root/.zshrc https://cdn.starskim.cn/pxe/zsh/zshrc.zsh-template
     cd ${omz}
     echo 'robbyrussell-ascii.zsh-theme'
     if [ ! -e "${omz}/themes/robbyrussell-ascii.zsh-theme" ];then
