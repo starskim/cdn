@@ -6,12 +6,13 @@ echo $CentOS_ver
 echo $CentOS_ver > /log/centos.txt
 
 ######## hostname ########
-if [ "${CentOS_ver}" == '7' ]; then
-  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh" | /bin/sh
-fi
-if [ "${CentOS_ver}" == '8' ]; then
-  /bin/bash /root/hostname.sh
-fi
+curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh" | /bin/sh
+# if [ "${CentOS_ver}" == '7' ]; then
+#   curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh" | /bin/sh
+# fi
+# if [ "${CentOS_ver}" == '8' ]; then
+#   /bin/bash /root/hostname.sh
+# fi
 
 ######## sysctl ########
 [[ ! "${OS}" =~ ^EulerOS$|^openEuler$ ]] && [ -z "$(grep ^'PROMPT_COMMAND=' /etc/bashrc)" ] && cat >> /etc/bashrc << EOF
@@ -112,21 +113,23 @@ if [ -e "$(which zabbix_agentd)" ]; then
   systemctl start zabbix-agent
 fi
 ######## git ########
-if [ "${CentOS_ver}" == '7' ]; then
-  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh" | /bin/sh
-fi
+curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh" | /bin/sh
+# if [ "${CentOS_ver}" == '7' ]; then
+#   curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh" | /bin/sh
+# fi
 
 ######## zsh ########
-if [ "${CentOS_ver}" == '7' ]; then
-  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh" | /bin/sh
-fi
-if [ "${CentOS_ver}" == '8' ]; then
-  /bin/bash /root/ohmyzsh.sh
-fi
+curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh" | /bin/sh
+# if [ "${CentOS_ver}" == '7' ]; then
+#   curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh" | /bin/sh
+# fi
+# if [ "${CentOS_ver}" == '8' ]; then
+#   /bin/bash /root/ohmyzsh.sh
+# fi
 ######## 删除预设的脚本 ########
 sed -i '/.*pxe-setting-script\.sh.*/d' /etc/rc.d/rc.local
 rm -rf /etc/rc.local && ln -s /etc/rc.d/rc.local /etc/rc.local
-rm -rf /root/*.sh
+# rm -rf /root/*.sh
 rm -f ~/*.cfg
 
 ######## 重启 ########
