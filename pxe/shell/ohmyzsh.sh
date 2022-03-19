@@ -55,11 +55,11 @@ fi
 cd ~
 zsh_version=$(zsh --version | awk '{print $2}')
 if [ "${CentOS_ver}" == '7' ]; then
-    if [ "${zsh_version}" != '5.8' ]; then
-        wget -c -O zsh-5.8.tar.xz https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/zsh-5.8.tar.xz
-        tar xvf zsh-5.8.tar.xz
-        rm -rf zsh-5.8.tar.xz
-        cd zsh-5.8
+    if [ "${zsh_version}" != '5.8.1' ]; then
+        wget -c -O zsh-5.8.tar.xz https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/zsh/zsh-5.8.1.tar.xz
+        tar xvf zsh-5.8.1.tar.xz
+        rm -rf zsh-5.8.1.tar.xz
+        cd zsh-5.8.1
         ./configure --with-tcsetpgrp && make && make install
         /usr/local/bin/zsh --version
         echo "/usr/local/bin/zsh" | tee -a /etc/shells
