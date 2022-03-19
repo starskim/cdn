@@ -88,13 +88,25 @@ if [ ! -e "./oneinstack" ];then
   rm -rf oneinstack-full.tar.gz
 fi
 
-######## Docker Compose ########
+######## Docker ########
 if [ -e "$(which docker)" ]; then
   if [ ! -e "/usr/local/bin/docker-compose" ];then
     curl -L "https://github.starskim.com/https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
   fi  
-  systemctl enable docker
+  sudo mkdir /etc/docker
+  cat <<EOF | sudo tee /etc/docker/daemon.json
+  {
+    "exec-opts": ["native.cgroupdriver=systemd"],
+    "log-driver": "json-file",
+    "log-opts": {
+      "max-size": "100m"
+    },
+    "storage-driver": "overlay2"
+  }
+  EOF
+  systemctl enable --now docker
+  systemctl daemon-reload
   systemctl start docker
 fi
 
@@ -104,7 +116,7 @@ if [ -e "$(which zabbix_agentd)" ]; then
   sed -i 's/^Server=.*$/Server=0.0.0.0\/0,::\/0/' /etc/zabbix/zabbix_agentd.conf
   sed -i 's/^ServerActive=.*$/ServerActive=10.0.0.248/' /etc/zabbix/zabbix_agentd.conf
   sed -i 's/^Hostname=.*$/Hostname='$(hostname)'/' /etc/zabbix/zabbix_agentd.conf
-  systemctl enable zabbix-agent
+  systemctl enable --now zabbix-agent
   systemctl start zabbix-agent
 fi
 ######## git ########
