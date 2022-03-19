@@ -56,7 +56,7 @@ cd ~
 zsh_version=$(zsh --version | awk '{print $2}')
 if [ "${CentOS_ver}" == '7' ]; then
     if [ "${zsh_version}" != '5.8.1' ]; then
-        wget -c -O zsh-5.8.tar.xz https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/zsh-5.8.1.tar.xz
+        wget -c -O zsh-5.8.1.tar.xz https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/zsh/zsh-5.8.1.tar.xz
         tar xvf zsh-5.8.1.tar.xz
         rm -rf zsh-5.8.1.tar.xz
         cd zsh-5.8.1
