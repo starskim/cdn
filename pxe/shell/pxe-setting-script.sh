@@ -1,10 +1,5 @@
 #!/bin/bash
 
-CentOS_ver=$(lsb_release -rs | awk -F. '{print $1}' | awk '{print $1}')
-
-echo $CentOS_ver
-echo $CentOS_ver > /log/centos.txt
-
 ######## hostname ########
 curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh" | /bin/sh
 
