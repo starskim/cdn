@@ -100,6 +100,7 @@ fi
 
 ######## zabbix ########
 if [ -e "$(which zabbix_agentd)" ]; then
+  [ ! -e "/etc/zabbix/zabbix_agentd.conf_bk" ] && /bin/mv /etc/zabbix/zabbix_agentd.conf{,_bk}
   sed -i 's/^Server=.*$/Server=0.0.0.0\/0,::\/0/' /etc/zabbix/zabbix_agentd.conf
   sed -i 's/^ServerActive=.*$/ServerActive=10.0.0.248/' /etc/zabbix/zabbix_agentd.conf
   sed -i 's/^Hostname=.*$/Hostname='$(hostname)'/' /etc/zabbix/zabbix_agentd.conf
