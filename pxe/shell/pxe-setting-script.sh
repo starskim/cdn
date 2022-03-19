@@ -107,9 +107,7 @@ if [ -e "$(which zabbix_agentd)" ]; then
   systemctl start zabbix-agent
 fi
 ######## git ########
-if [ "${CentOS_ver}" == '7' ]; then
-  curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh" | /bin/sh
-fi
+curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh" | /bin/sh
 
 ######## zsh ########
 curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh" | /bin/sh
