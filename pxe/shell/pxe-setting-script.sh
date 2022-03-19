@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ######## hostname ########
-curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/hostname.sh" | /bin/sh
+curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/hostname.sh" | /bin/sh
 
 ######## sysctl ########
 [[ ! "${OS}" =~ ^EulerOS$|^openEuler$ ]] && [ -z "$(grep ^'PROMPT_COMMAND=' /etc/bashrc)" ] && cat >> /etc/bashrc << EOF
@@ -115,10 +115,10 @@ if [ -e "$(which zabbix_agentd)" ]; then
   systemctl start zabbix-agent
 fi
 ######## git ########
-curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/installgit.sh" | /bin/sh
+curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/installgit.sh" | /bin/sh
 
 ######## zsh ########
-curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn@latest/pxe/shell/ohmyzsh.sh" | /bin/sh
+curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/ohmyzsh.sh" | /bin/sh
 
 ######## 删除预设的脚本 ########
 sed -i '/.*pxe-setting-script\.sh.*/d' /etc/rc.d/rc.local
