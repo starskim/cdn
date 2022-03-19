@@ -99,7 +99,7 @@ if [ -e "$(which docker)" ]; then
     },
     "storage-driver": "overlay2"
   }
-  EOF
+EOF
   systemctl enable --now docker
   systemctl daemon-reload
   systemctl start docker
