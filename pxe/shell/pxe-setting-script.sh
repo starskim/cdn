@@ -93,6 +93,7 @@ if [ -e "$(which docker)" ]; then
   cat <<EOF | sudo tee /etc/docker/daemon.json
   {
     "exec-opts": ["native.cgroupdriver=systemd"],
+    "registry-mirrors": ["https://t5j7pvyf.mirror.aliyuncs.com"],
     "log-driver": "json-file",
     "log-opts": {
       "max-size": "100m"
