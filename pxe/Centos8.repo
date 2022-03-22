@@ -103,3 +103,17 @@ baseurl = https://mirrors.tuna.tsinghua.edu.cn/mariadb/yum/10.6/rhel/$releasever
 gpgkey = https://mirrors.tuna.tsinghua.edu.cn/mariadb/yum/RPM-GPG-KEY-MariaDB
 gpgcheck = 1
 enabled = 1
+
+[rpmfusion-free-updates]
+name=RPM Fusion for EL 8 - Free - Updates
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/rpmfusion/free/el/updates/8/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-8
+
+[rpmfusion-nonfree-updates]
+name=RPM Fusion for EL 8 - Nonfree - Updates
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/rpmfusion/nonfree/el/updates/8/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-8
