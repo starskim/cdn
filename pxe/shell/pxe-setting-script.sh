@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ######## hostname ########
-curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/hostname.sh" | /bin/sh
+curl -fsSL "https://www.starskim.cn/pxe/shell/hostname.sh" | /bin/sh
 
 ######## sysctl ########
 [[ ! "${OS}" =~ ^EulerOS$|^openEuler$ ]] && [ -z "$(grep ^'PROMPT_COMMAND=' /etc/bashrc)" ] && cat >> /etc/bashrc << EOF
@@ -61,7 +61,7 @@ rm -f /etc/yum.repos.d/Centos*.repo
 rm -f /etc/yum.repos.d/epel*.repo
 rm -f /etc/yum.repos.d/zabbix*.repo
 yum clean all
-pkgList="iftop htop python2-pip python2-devel python2 python3-pip python3-devel python3 bash-completion bash-completion-extras vim wget gcc ntpdate ntp ncurses-devel deltarpm gcc-c++ make cmake autoconf libjpeg libjpeg-devel libjpeg-turbo libjpeg-turbo-devel libpng libpng-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel krb5-devel libc-client libc-client-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel libaio numactl numactl-libs readline-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel net-tools libxslt-devel libicu-devel libevent-devel libtool libtool-ltdl bison gd-devel vim-enhanced pcre-devel libmcrypt libmcrypt-devel mhash mhash-devel mcrypt zip unzip sqlite-devel sysstat patch bc expect expat-devel oniguruma oniguruma-devel libtirpc-devel nss rsync rsyslog git lsof lrzsz psmisc which libatomic tmux gettext-devel perl-ExtUtils-MakeMaker redhat-lsb-core docker-ce docker-ce-cli containerd.io docker-compose-plugin cmake3 libzip libzip-devel wget chrony rpcgen zabbix-agent ffmpeg ffmpeg-devel"
+pkgList="iftop htop python2-pip python2-devel python2 python39-pip python39-devel python39 bash-completion bash-completion-extras vim wget gcc ntpdate ntp ncurses-devel deltarpm gcc-c++ make cmake autoconf libjpeg libjpeg-devel libjpeg-turbo libjpeg-turbo-devel libpng libpng-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel krb5-devel libc-client libc-client-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel libaio numactl numactl-libs readline-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel net-tools libxslt-devel libicu-devel libevent-devel libtool libtool-ltdl bison gd-devel vim-enhanced pcre-devel libmcrypt libmcrypt-devel mhash mhash-devel mcrypt zip unzip sqlite-devel sysstat patch bc expect expat-devel oniguruma oniguruma-devel libtirpc-devel nss rsync rsyslog git lsof lrzsz psmisc which libatomic tmux gettext-devel perl-ExtUtils-MakeMaker redhat-lsb-core cmake3 libzip libzip-devel wget chrony rpcgen ffmpeg ffmpeg-devel"
 for Package in ${pkgList}; do
   yum -y install ${Package}
 done
@@ -111,10 +111,10 @@ if [ -e "$(which zabbix_agentd)" ]; then
   systemctl start zabbix-agent
 fi
 ######## git ########
-curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/installgit.sh" | /bin/sh
+curl -fsSL "https://www.starskim.cn/pxe/shell/installgit.sh" | /bin/sh
 
 ######## zsh ########
-curl -fsSL "https://cdn.jsdelivr.net/gh/starskim/cdn/pxe/shell/ohmyzsh.sh" | /bin/sh
+curl -fsSL "https://www.starskim.cn/pxe/shell/ohmyzsh.sh" | /bin/sh
 
 ######## 删除预设的脚本 ########
 sed -i '/.*pxe-setting-script\.sh.*/d' /etc/rc.d/rc.local
