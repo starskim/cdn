@@ -60,10 +60,10 @@ type=rpm-md
 
 [docker-ce-stable]
 name=Docker CE Stable - $basearch
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/$releasever/$basearch/stable
+baseurl=https://download.docker.com/linux/centos/$releasever/$basearch/stable
 enabled=1
 gpgcheck=1
-gpgkey=https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/gpg
+gpgkey=https://download.docker.com/linux/centos/gpg
 
 [kubernetes]
 name=Kubernetes
@@ -93,6 +93,13 @@ gpgkey=https://mirrors.tuna.tsinghua.edu.cn/zabbix/RPM-GPG-KEY-ZABBIX-A14FE591
 [zabbix-non-supported]
 name=Zabbix Official Repository non-supported - $basearch
 baseurl=https://mirrors.tuna.tsinghua.edu.cn/zabbix/non-supported/rhel/$releasever/$basearch/
+enabled=1
+gpgkey=https://mirrors.tuna.tsinghua.edu.cn/zabbix/RPM-GPG-KEY-ZABBIX
+gpgcheck=1
+
+[zabbix-agent2-plugins]
+name=Zabbix Official Repository (Agent2 Plugins) - $basearch
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/zabbix/zabbix-agent2-plugins/1/rhel/$releasever/$basearch/
 enabled=1
 gpgkey=https://mirrors.tuna.tsinghua.edu.cn/zabbix/RPM-GPG-KEY-ZABBIX
 gpgcheck=1

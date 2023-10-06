@@ -17,7 +17,7 @@ if [ -e "/root/.oh-my-zsh" ];then
     cd ${omz}
     echo 'robbyrussell-ascii.zsh-theme'
     if [ ! -e "${omz}/themes/robbyrussell-ascii.zsh-theme" ];then
-        wget -c -O ${omz}/themes/robbyrussell-ascii.zsh-theme https://cdn.starskim.cn/pxe/zsh/robbyrussell-ascii.zsh-theme
+        wget -c -O ${omz}/themes/robbyrussell-ascii.zsh-theme https://www.starskim.cn/pxe/zsh/robbyrussell-ascii.zsh-theme
     fi
     echo 'powerlevel10k'
     if [ ! -e "${omz}/themes/powerlevel10k" ];then
