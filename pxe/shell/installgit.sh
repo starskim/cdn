@@ -7,11 +7,11 @@ fi
 # Install Git
 cd ~
 git_version=$(git version | awk '{print $3}')
-if [[ "${git_version}" != '2.40.1' && ${VERSION_ID} != "8" ]]; then
-    wget -c https://www.kernel.org/pub/software/scm/git/git-2.40.1.tar.gz
-    tar -zxvf git-2.40.1.tar.gz
-    rm -rf git-2.40.1.tar.gz
-    cd git-2.40.1
+if [[ "${git_version}" != '2.43.0' && ${VERSION_ID} != "8" ]]; then
+    wget -c https://www.kernel.org/pub/software/scm/git/git-2.43.0.tar.gz
+    tar -zxvf git-2.43.0.tar.gz
+    rm -rf git-2.43.0.tar.gz
+    cd git-2.43.0
     make configure
     ./configure --prefix=/usr/local/git
     make profix=/usr/local/git
