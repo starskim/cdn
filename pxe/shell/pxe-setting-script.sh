@@ -101,8 +101,8 @@ fi
 
 ######## Docker ########
 if [ -e "$(which docker)" ]; then
-  sudo mkdir /etc/docker
-  cat <<EOF | sudo tee /etc/docker/daemon.json
+  [ ! -e "/etc/docker" ] && sudo mkdir /etc/docker
+  [ ! -e "/etc/docker/daemon.json" ] && cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "registry-mirrors": ["https://hub.starskim.com"],
@@ -115,7 +115,7 @@ if [ -e "$(which docker)" ]; then
 EOF
 
   #配置 Docker 代理
-  sudo mkdir -p /etc/systemd/system/docker.service.d
+  [ ! -e "/etc/systemd/system/docker.service.d" ] && sudo mkdir -p /etc/systemd/system/docker.service.d
   [ ! -e "/etc/systemd/system/docker.service.d/http-proxy.conf" ] && wget -c -O /etc/systemd/system/docker.service.d/http-proxy.conf https://www.starskim.cn/pxe/conf/http-proxy.conf
   systemctl enable --now docker
 fi
@@ -128,7 +128,7 @@ if [ -e "$(which containerd)" ]; then
   wget -c -O /etc/containerd/config.toml https://www.starskim.cn/pxe/conf/containerd.toml
   fi
   #配置 containerd 代理
-  mkdir -p /etc/systemd/system/containerd.service.d
+  [ ! -e "/etc/systemd/system/containerd.service.d" ] && sudo mkdir -p /etc/systemd/system/containerd.service.d
   [ ! -e "/etc/systemd/system/containerd.service.d/http-proxy.conf" ] && wget -c -O /etc/systemd/system/containerd.service.d/http-proxy.conf https://www.starskim.cn/pxe/conf/http-proxy.conf
   systemctl enable --now containerd
 fi
