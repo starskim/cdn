@@ -116,7 +116,7 @@ EOF
 
   #配置 Docker 代理
   sudo mkdir -p /etc/systemd/system/docker.service.d
-  wget -c -O /etc/systemd/system/docker.service.d/http-proxy.conf https://www.starskim.cn/pxe/conf/http-proxy.conf
+  [ ! -e "/etc/systemd/system/docker.service.d/http-proxy.conf" ] && wget -c -O /etc/systemd/system/docker.service.d/http-proxy.conf https://www.starskim.cn/pxe/conf/http-proxy.conf
   systemctl enable --now docker
 fi
 
@@ -129,7 +129,7 @@ if [ -e "$(which containerd)" ]; then
   fi
   #配置 containerd 代理
   mkdir -p /etc/systemd/system/containerd.service.d
-  wget -c -O /etc/systemd/system/containerd.service.d/http-proxy.conf https://www.starskim.cn/pxe/conf/http-proxy.conf
+  [ ! -e "/etc/systemd/system/containerd.service.d/http-proxy.conf" ] && wget -c -O /etc/systemd/system/containerd.service.d/http-proxy.conf https://www.starskim.cn/pxe/conf/http-proxy.conf
   systemctl enable --now containerd
 fi
 
